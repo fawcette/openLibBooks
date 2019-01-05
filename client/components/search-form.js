@@ -29,5 +29,5 @@ export default SearchForm
 /**
  * PROP TYPES
  */
-AuthForm.propTypes = {
+SearchForm.propTypes = {
 }
