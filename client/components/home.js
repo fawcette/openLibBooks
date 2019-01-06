@@ -20,8 +20,8 @@ class Home extends React.Component {
       <div>
         <h3>Welcome</h3>
         <SearchForm />
-        {this.props.books.map((book, idx) => (
-          <p key={idx}>{`${book.title}`}</p>
+        {this.props.books.map((book) => (
+          <p key={book.key}>{`${book.title}`}</p>
         ))}
       </div>
     )

@@ -11,7 +11,8 @@ class SearchForm extends React.Component {
   constructor () {
     super()
     this.state = {
-      search: ''
+      search: '',
+      type: 'q' // all
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -22,17 +23,20 @@ class SearchForm extends React.Component {
 
   handleSubmit (event) {
     event.preventDefault()
-    this.props.getBooks(this.state.search)
+    this.props.getBooks(this.state.search, this.state.type)
   }
 
   render () {
     return (
       <div>
+
         <form onSubmit={this.handleSubmit}>
           <div>
-            <label htmlFor="search">
-              <small>Search</small>
-            </label>
+            <select name="type" value={this.state.type} onChange={this.handleChange}>
+              <option value="q">All</option>
+              <option value="title">Title</option>
+              <option value="author">Author</option>
+            </select>
             <input name="search" type="text" onChange={this.handleChange}/>
           </div>
           <div>
@@ -46,7 +50,7 @@ class SearchForm extends React.Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getBooks: (searchQuery) => dispatch(getSearchedBooks(searchQuery))
+    getBooks: (searchQuery, type) => dispatch(getSearchedBooks(searchQuery, type))
   }
 }
 

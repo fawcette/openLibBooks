@@ -15,10 +15,10 @@ const getBooks = (books) => ({ type: GET_BOOKS, books})
 /**
  * THUNK CREATORS
  */
-export const getSearchedBooks = (searchQuery) => async (dispatch) => {
+export const getSearchedBooks = (searchQuery, type) => async (dispatch) => {
     try {
         let queryUrlStr = searchQuery.split(' ').join('+')
-        const res = await axios.get(API_URL + 'search.json?q=' + queryUrlStr)
+        const res = await axios.get(API_URL + 'search.json?' + type + '=' + queryUrlStr)
         dispatch(getBooks(res.data.docs))
     } catch (error) {
         console.error(error)
