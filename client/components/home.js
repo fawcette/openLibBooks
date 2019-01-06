@@ -14,22 +14,7 @@ class Home extends React.Component {
     super()
   }
 
-  componentDidMount() {
-    /*const res = await axios.get('http://openlibrary.org/search.json?q=alice')
-      //'http://openlibrary.org/api/books?bibkeys=ISBN:0201558025,LCCN:93005405&jscmd=data&format=json')
-    console.log(res.data)*/
-    this.props.getBooks('alice')
-    console.log(this.state + 'the state?')
-  }
-
-  /*{this.props.books.map((book, idx) => (
-          <p key={idx}>{`${book}`}</p>
-        ))}
-  */
-  
-  render() {
-    console.log('the state' + this.state)
-    console.log(this)
+  render () {
     
     return (
       <div>
@@ -40,7 +25,7 @@ class Home extends React.Component {
         ))}
       </div>
     )
-}
+  }
 }
 
 const mapStateToProps = (state) => {

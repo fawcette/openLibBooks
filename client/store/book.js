@@ -17,9 +17,8 @@ const getBooks = (books) => ({ type: GET_BOOKS, books})
  */
 export const getSearchedBooks = (searchQuery) => async (dispatch) => {
     try {
-        console.log(API_URL + 'search.json?q=' + searchQuery)
-        const res = await axios.get(API_URL + 'search.json?q=' + searchQuery)
-        console.log(res)
+        let queryUrlStr = searchQuery.split(' ').join('+')
+        const res = await axios.get(API_URL + 'search.json?q=' + queryUrlStr)
         dispatch(getBooks(res.data.docs))
     } catch (error) {
         console.error(error)
