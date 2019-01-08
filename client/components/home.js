@@ -1,8 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {SearchForm} from '.'
-import axios from 'axios'
+import {SearchForm, BookFilters} from '.'
 import {getSearchedBooks} from '../store'
 
 /**
@@ -20,6 +19,7 @@ class Home extends React.Component {
       <div>
         <h3>Welcome</h3>
         <SearchForm />
+        <BookFilters />
         {this.props.books.map((book) => (
           <p key={book.key}>{`${book.title}`}</p>
         ))}
@@ -29,8 +29,23 @@ class Home extends React.Component {
 }
 
 const mapStateToProps = (state) => {
+  let books = state.books
+  let sortType = state.sortType
+  if (state.sortType === 'title') {
+    books.sort((a, b) => {
+      if (a.title > b.title) {
+        return 1
+      }
+      else if(a.title < b.title) {
+        return -1
+      } else {
+        return 0
+      }
+    })
+  }
   return {
-    books: state.books
+    books,
+    sortType
   }
 }
 
