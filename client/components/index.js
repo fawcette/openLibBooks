@@ -6,4 +6,5 @@
 export {default as Navbar} from './navbar'
 export {default as Home} from './home'
 export {default as SearchForm} from './search-form'
-export {default as BookFilters} from './book-filters'
+export {default as BookSort} from './book-sort'
+export {default as BookFilter} from './book-filter'

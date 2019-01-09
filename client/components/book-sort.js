@@ -6,12 +6,13 @@ import {setSortType} from '../store'
 /**
  * COMPONENT
  */
-class BookFilters extends React.Component {
+class BookSort extends React.Component {
 
   constructor () {
     super()
     this.handleChange = this.handleChange.bind(this)
   }
+
   handleChange (event) {
     this.props.setSort(event.target.value)
   }
@@ -36,10 +37,10 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(null, mapDispatchToProps)(BookFilters)
+export default connect(null, mapDispatchToProps)(BookSort)
 
 /**
  * PROP TYPES
  */
-BookFilters.propTypes = {
+BookSort.propTypes = {
 }

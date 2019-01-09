@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {SearchForm, BookFilters} from '.'
+import {SearchForm, BookSort, BookFilter} from '.'
 import {getSearchedBooks} from '../store'
 
 /**
@@ -19,7 +19,8 @@ class Home extends React.Component {
       <div>
         <h3>Welcome</h3>
         <SearchForm />
-        <BookFilters />
+        <BookSort />
+        <BookFilter />
         {this.props.books.map((book) => (
           <p key={book.key}>{`${book.title} ${book.first_publish_year}`}</p>
         ))}
@@ -31,6 +32,12 @@ class Home extends React.Component {
 const mapStateToProps = (state) => {
   let books = [...state.books]
   let sortType = state.sortType
+  let filterDateRange = state.filterDateRange
+
+  books = books.filter((book) => 
+    book.first_publish_year >= filterDateRange.startYear && book.first_publish_year <= filterDateRange.endYear
+  )
+
   if (state.sortType !== 'none') {
     books.sort((a, b) => {
       a = (a[sortType] !== undefined && typeof a[sortType].toLowerCase === "function") ? a[sortType].toLowerCase() : a[sortType]
@@ -47,7 +54,8 @@ const mapStateToProps = (state) => {
   }
   return {
     books,
-    sortType
+    sortType,
+    filterDateRange
   }
 }
 
