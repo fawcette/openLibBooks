@@ -23,7 +23,7 @@ class BookFilters extends React.Component {
         <select name="type" onChange={this.handleChange}>
           <option value="none">None</option>
           <option value="title">Title</option>
-          <option value="year">Year Published</option>
+          <option value="first_publish_year">Year Published</option>
         </select>
       </div>
     )

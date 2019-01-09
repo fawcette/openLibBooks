@@ -21,7 +21,7 @@ class Home extends React.Component {
         <SearchForm />
         <BookFilters />
         {this.props.books.map((book) => (
-          <p key={book.key}>{`${book.title}`}</p>
+          <p key={book.key}>{`${book.title} ${book.first_publish_year}`}</p>
         ))}
       </div>
     )
@@ -29,14 +29,16 @@ class Home extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  let books = state.books
+  let books = [...state.books]
   let sortType = state.sortType
-  if (state.sortType === 'title') {
+  if (state.sortType !== 'none') {
     books.sort((a, b) => {
-      if (a.title > b.title) {
+      a = (a[sortType] !== undefined && typeof a[sortType].toLowerCase === "function") ? a[sortType].toLowerCase() : a[sortType]
+      b = (b[sortType] !== undefined && typeof b[sortType].toLowerCase === "function") ? b[sortType].toLowerCase() : b[sortType]
+      if (a === undefined || a > b) {
         return 1
       }
-      else if(a.title < b.title) {
+      else if(b === undefined || a < b) {
         return -1
       } else {
         return 0
