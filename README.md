@@ -6,6 +6,9 @@ Provides the ability to search for books, filter results, and retrieve specific 
 
 ## Deployed App Link: https://pacific-crag-58087.herokuapp.com/
 
+## Technologies
+React, Redux, Node, Open Library API
+
 ## Features
 
 1) Allow the user to search for a book.
