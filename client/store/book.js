@@ -6,7 +6,8 @@ const API_URL = 'http://openlibrary.org/'
  * INITIAL STATE
  */
 const initialState = {
-    books: [], 
+    books: [],
+    singleBook: {}, 
     sortType: 'none', 
     filterDateRange: {startYear: -Infinity, endYear: Infinity},
     filterLanguage: {}
@@ -16,6 +17,7 @@ const initialState = {
  * ACTION TYPES
  */
 const GET_BOOKS = 'GET_BOOKS'
+const GET_BOOK = 'GET_BOOK'
 const SET_SORT = 'SET_SORT'
 const SET_DATE_RANGE = 'SET_DATE_RANGE'
 const SET_LANGUAGE = 'SET_LANGUAGE'
@@ -24,6 +26,7 @@ const SET_LANGUAGE = 'SET_LANGUAGE'
  * ACTION CREATORS
  */
 const getBooks = (books) => ({ type: GET_BOOKS, books})
+const getBook = (book) => ({ type: GET_BOOK, book})
 const setSort = (sortType) => ({type: SET_SORT, sortType})
 const setDateRange = (startYear, endYear) => ({type: SET_DATE_RANGE, startYear, endYear})
 const setLanguage = (languageDict) => ({type: SET_LANGUAGE, languageDict})
@@ -36,6 +39,18 @@ export const getSearchedBooks = (searchQuery, type) => async (dispatch) => {
         let queryUrlStr = searchQuery.split(' ').join('+')
         const res = await axios.get(API_URL + 'search.json?' + type + '=' + queryUrlStr)
         dispatch(getBooks(res.data.docs))
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+//Handles cases where the ID can be either ISBN or OLID
+export const getSingleBook = (id) => async (dispatch) => {
+    try {
+        let idType = (id.slice(0, 2) == 'OL') ? 'OLID' : 'ISBN'
+        const res = await axios.get(API_URL + `api/books?bibkeys=${idType}` + id + '&jscmd=details&format=json')
+        let idProperty = (idType === 'OLID') ? `${idType}:${id}` : `${idType}${id}`
+        dispatch(getBook(res.data[idProperty]))
     } catch (error) {
         console.error(error)
     }
@@ -60,6 +75,8 @@ const reducer = (state = initialState, action) => {
     switch (action.type) {
         case GET_BOOKS:
             return {...state, books: action.books}
+        case GET_BOOK:
+            return {...state, singleBook: action.book}
         case SET_SORT:
             return {...state, sortType: action.sortType}
         case SET_DATE_RANGE:

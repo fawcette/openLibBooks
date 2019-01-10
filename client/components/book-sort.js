@@ -11,7 +11,7 @@ class BookSort extends React.Component {
   constructor () {
     super()
     this.handleChange = this.handleChange.bind(this)
-  }
+  }a
 
   handleChange (event) {
     this.props.setSort(event.target.value)
@@ -19,8 +19,8 @@ class BookSort extends React.Component {
 
   render () {
     return (
-      <div>
-        Sort By: 
+      <div id="sort-container">
+        <h5>Sort By:</h5> 
         <select name="type" onChange={this.handleChange}>
           <option value="none">None</option>
           <option value="title">Title</option>
