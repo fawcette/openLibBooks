@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const API_URL = 'http://openlibrary.org/'
+const API_URL = 'https://openlibrary.org/'
 
 /**
  * INITIAL STATE
