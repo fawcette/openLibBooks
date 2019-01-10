@@ -44,6 +44,7 @@ export const getSearchedBooks = (searchQuery, type) => async (dispatch) => {
     }
 }
 
+//Handles cases where the ID can be either ISBN or OLID
 export const getSingleBook = (id) => async (dispatch) => {
     try {
         let idType = (id.slice(0, 2) == 'OL') ? 'OLID' : 'ISBN'

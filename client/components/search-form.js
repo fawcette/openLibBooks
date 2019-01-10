@@ -1,6 +1,5 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import PropTypes from 'prop-types'
 import {getSearchedBooks} from '../store'
 
 /**
@@ -28,19 +27,19 @@ class SearchForm extends React.Component {
 
   render () {
     return (
-      <div>
+      <div id="search-bar-container">
 
         <form onSubmit={this.handleSubmit}>
-          <div>
-            <select name="type" value={this.state.type} onChange={this.handleChange}>
-              <option value="q">All</option>
-              <option value="title">Title</option>
-              <option value="author">Author</option>
-            </select>
-            <input name="search" type="text" onChange={this.handleChange}/>
-          </div>
-          <div>
-            <button type="submit"><i class="fas fa-search"></i></button>
+          <div id="search-form">
+              <select className="search-button" name="type" value={this.state.type} onChange={this.handleChange}>
+                <option value="q">All</option>
+                <option value="title">Title</option>
+                <option value="author">Author</option>
+              </select>
+              <input id="search-bar" name="search" type="text" onChange={this.handleChange}/>
+            <div>
+              <button className="search-button"type="submit"><i class="fas fa-search"></i></button>
+            </div>
           </div>
         </form>
       </div>
@@ -56,8 +55,3 @@ const mapDispatchToProps = (dispatch) => {
 
 export default connect(null, mapDispatchToProps)(SearchForm)
 
-/**
- * PROP TYPES
- */
-SearchForm.propTypes = {
-}

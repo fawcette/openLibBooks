@@ -1,9 +1,6 @@
 import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import {withRouter, Route, Switch} from 'react-router-dom'
-import PropTypes from 'prop-types'
+import {Route, Switch} from 'react-router-dom'
 import {Home, SingleBook} from './components'
-import {me} from './store'
 
 /**
  * COMPONENT
@@ -25,9 +22,3 @@ class Routes extends Component {
 
 
 export default Routes
-
-/**
- * PROP TYPES
- */
-Routes.propTypes = {
-}
