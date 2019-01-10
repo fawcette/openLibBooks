@@ -40,7 +40,7 @@ class SearchForm extends React.Component {
             <input name="search" type="text" onChange={this.handleChange}/>
           </div>
           <div>
-            <button type="submit">Search</button>
+            <button type="submit"><i class="fas fa-search"></i></button>
           </div>
         </form>
       </div>

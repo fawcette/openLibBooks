@@ -3,14 +3,30 @@ import axios from 'axios'
 const API_URL = 'http://openlibrary.org/'
 
 /**
+ * INITIAL STATE
+ */
+const initialState = {
+    books: [], 
+    sortType: 'none', 
+    filterDateRange: {startYear: -Infinity, endYear: Infinity},
+    filterLanguage: {}
+}
+
+/**
  * ACTION TYPES
  */
-const GET_BOOKS = 'GET BOOKS'
+const GET_BOOKS = 'GET_BOOKS'
+const SET_SORT = 'SET_SORT'
+const SET_DATE_RANGE = 'SET_DATE_RANGE'
+const SET_LANGUAGE = 'SET_LANGUAGE'
 
 /**
  * ACTION CREATORS
  */
 const getBooks = (books) => ({ type: GET_BOOKS, books})
+const setSort = (sortType) => ({type: SET_SORT, sortType})
+const setDateRange = (startYear, endYear) => ({type: SET_DATE_RANGE, startYear, endYear})
+const setLanguage = (languageDict) => ({type: SET_LANGUAGE, languageDict})
 
 /**
  * THUNK CREATORS
@@ -25,13 +41,31 @@ export const getSearchedBooks = (searchQuery, type) => async (dispatch) => {
     }
 }
 
+export const setSortType = (type) => (dispatch) => {
+    dispatch(setSort(type))
+}
+
+export const setFilterDateRange = (startYear, endYear) => (dispatch) => {
+    dispatch(setDateRange(startYear, endYear))
+}
+
+export const setFilterLanguage = (languageDict) => (dispatch) => {
+    dispatch(setLanguage(languageDict))
+}
+
 /**
  * REDUCER
  */
-const reducer = (state = {books: []}, action) => {
+const reducer = (state = initialState, action) => {
     switch (action.type) {
         case GET_BOOKS:
             return {...state, books: action.books}
+        case SET_SORT:
+            return {...state, sortType: action.sortType}
+        case SET_DATE_RANGE:
+            return {...state, filterDateRange: {startYear: action.startYear, endYear: action.endYear}}
+        case SET_LANGUAGE:
+            return {...state, filterLanguage: action.languageDict}
         default:
             return state
     }
