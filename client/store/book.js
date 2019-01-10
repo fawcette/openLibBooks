@@ -5,11 +5,11 @@ const API_URL = 'http://openlibrary.org/'
 /**
  * INITIAL STATE
  */
-
 const initialState = {
     books: [], 
     sortType: 'none', 
-    filterDateRange: {startYear: -Infinity, endYear: Infinity}
+    filterDateRange: {startYear: -Infinity, endYear: Infinity},
+    filterLanguage: {}
 }
 
 /**
@@ -18,6 +18,7 @@ const initialState = {
 const GET_BOOKS = 'GET_BOOKS'
 const SET_SORT = 'SET_SORT'
 const SET_DATE_RANGE = 'SET_DATE_RANGE'
+const SET_LANGUAGE = 'SET_LANGUAGE'
 
 /**
  * ACTION CREATORS
@@ -25,6 +26,7 @@ const SET_DATE_RANGE = 'SET_DATE_RANGE'
 const getBooks = (books) => ({ type: GET_BOOKS, books})
 const setSort = (sortType) => ({type: SET_SORT, sortType})
 const setDateRange = (startYear, endYear) => ({type: SET_DATE_RANGE, startYear, endYear})
+const setLanguage = (languageDict) => ({type: SET_LANGUAGE, languageDict})
 
 /**
  * THUNK CREATORS
@@ -47,6 +49,10 @@ export const setFilterDateRange = (startYear, endYear) => (dispatch) => {
     dispatch(setDateRange(startYear, endYear))
 }
 
+export const setFilterLanguage = (languageDict) => (dispatch) => {
+    dispatch(setLanguage(languageDict))
+}
+
 /**
  * REDUCER
  */
@@ -58,6 +64,8 @@ const reducer = (state = initialState, action) => {
             return {...state, sortType: action.sortType}
         case SET_DATE_RANGE:
             return {...state, filterDateRange: {startYear: action.startYear, endYear: action.endYear}}
+        case SET_LANGUAGE:
+            return {...state, filterLanguage: action.languageDict}
         default:
             return state
     }

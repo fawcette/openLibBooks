@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
-import {setFilterDateRange} from '../store'
+import {setFilterDateRange, setFilterLanguage} from '../store'
 
 /**
  * COMPONENT
@@ -15,8 +15,8 @@ class BookFilter extends React.Component {
       year_end: new Date().getFullYear(),
       language_filter: {}
     }
-    this.handleChange = this.handleChange.bind(this)
-    this.handleLangChange = this.handleLangChange.bind(this)
+    this.handleTextChange = this.handleTextChange.bind(this)
+    this.handleCheckChange = this.handleCheckChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
@@ -31,8 +31,8 @@ class BookFilter extends React.Component {
 
   handleSubmit (event) {
     event.preventDefault()
-    console.log(this.state.language_filter)
-    this.props.setDateRange(parseInt(this.state.year_start, 10), parseInt(this.state.year_end, 10)) 
+    this.props.setDateRange(parseInt(this.state.year_start, 10), parseInt(this.state.year_end, 10))
+    this.props.setLanguage(this.state.language_filter)
   }
   render () {
     let languageDict = this.props.languageDict
@@ -81,7 +81,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setDateRange: (startYear, endYear) => dispatch(setFilterDateRange(startYear, endYear))
+    setDateRange: (startYear, endYear) => dispatch(setFilterDateRange(startYear, endYear)),
+    setLanguage: (languageDict) => dispatch(setFilterLanguage(languageDict))
   }
 }
 

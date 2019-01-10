@@ -33,10 +33,21 @@ const mapStateToProps = (state) => {
   let books = [...state.books]
   let sortType = state.sortType
   let filterDateRange = state.filterDateRange
+  let filterLanguageDict = state.filterLanguage
 
-  books = books.filter((book) => 
-    book.first_publish_year >= filterDateRange.startYear && book.first_publish_year <= filterDateRange.endYear
-  )
+  books = books.filter((book) => {
+    let includedInYearFilter = book.first_publish_year >= filterDateRange.startYear && book.first_publish_year <= filterDateRange.endYear
+    let includedInLangFilter = Object.keys(filterLanguageDict).length === 0
+    if (filterLanguageDict && Object.keys(filterLanguageDict).length && book.language) {
+    for (let i = 0; i < book.language.length; i++) {
+      if (filterLanguageDict[book.language[i]] === true) {
+        includedInLangFilter = true
+        break
+      }
+    }
+  }
+    return includedInYearFilter && includedInLangFilter
+  })
 
   if (state.sortType !== 'none') {
     books.sort((a, b) => {
@@ -55,7 +66,8 @@ const mapStateToProps = (state) => {
   return {
     books,
     sortType,
-    filterDateRange
+    filterDateRange,
+    filterLanguageDict
   }
 }
 
